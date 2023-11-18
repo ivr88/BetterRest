@@ -4,65 +4,60 @@ import SwiftUI
 struct ContentView: View {
     @State private var sleepAmount = 8.0
     @State private var wakeUp = defaultWakeUpTime
-    @State private var coffeeAmount = 1
+    @State private var coffeeAmount = 0
     
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var showingAlert = false
     
+    var calculateBedTime: String {
+        let config = MLModelConfiguration()
+        let model = try? SleepCalculator (configuration: config)
+        let components = Calendar.current.dateComponents([.hour, .minute], from: wakeUp)
+        let hour = (components.hour ?? 0) * 360
+        let minute = (components.minute ?? 0) * 60
+        let prediction = try? model?.prediction(wake: Int64(hour + minute), estimatedSleep: sleepAmount, coffee: Int64(coffeeAmount))
+        let sleepTime = wakeUp - (prediction?.actualSleep ?? 0.0)
+        return sleepTime.formatted(date: .omitted, time: .shortened)
+    }
+    
     static var defaultWakeUpTime: Date {
         var components = DateComponents()
-        components.hour = 7
-        components.minute = 0
+        components.hour = 6
+        components.minute = 15
         return Calendar.current.date(from: components) ?? .now
     }
     var body: some View {
         NavigationStack {
             Form {
-                Text("When do you want to wake up?")
-                    .font(.largeTitle)
-                DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
-                    .labelsHidden()
-                    .padding()
-                VStack (alignment: .leading, spacing: 0) {
-                    Text("Desired amount to sleep")
-                        .font(.headline)
+                Section ("When do you want to wake up?") {
+                    DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
+                        .labelsHidden()
+                        .padding()
+                        .position(CGPoint(x: 150.0, y: 40.0))
+                }
+                    
+                Section ("Desired amount to sleep") {
                     Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
                         .padding()
                 }
                 
-                Text("Daily coffee intake")
-                    .font(.headline)
-                Stepper("^[\(coffeeAmount) cup](inflect: true)", value: $coffeeAmount, in: 1...20)
+                Section("Daily coffee intake") {
+                    Picker("Cups of coffee", selection: $coffeeAmount) {
+                        ForEach(1..<21) {
+                            Text("^[\($0) cup](inflect: true)")
+                        }
+                    }
                     .padding()
-            }
-            .navigationTitle("BetterRest")
-            .toolbar {
-            Button("Calculate", action: calculateBedTime)
-                .alert(alertTitle, isPresented: $showingAlert) {
-                    Button("Ok") {}
-                } message: {
-                    Text(alertMessage)
+                }
+                
+                Section ("Time to go sleep") {
+                    Text("\(calculateBedTime)")
+                    
                 }
             }
+            .navigationTitle("BetterRest")
         }
-    }
-    func calculateBedTime() {
-        do {
-            let config = MLModelConfiguration()
-            let model = try SleepCalculator (configuration: config)
-            let components = Calendar.current.dateComponents([.hour, .minute], from: wakeUp)
-            let hour = (components.hour ?? 0) * 360
-            let minute = (components.minute ?? 0) * 60
-            let prediction = try model.prediction(wake: Int64(hour + minute), estimatedSleep: sleepAmount, coffee: Int64(coffeeAmount))
-            let sleepTime = wakeUp - prediction.actualSleep
-            alertTitle = "Yor ideal bedtime is "
-            alertMessage = sleepTime.formatted(date: .omitted, time: .shortened)
-        } catch {
-            alertTitle = "Error"
-            alertMessage = "Sorry, there was a problem calculating your bedtime"
-        }
-        showingAlert = true
     }
 }
 

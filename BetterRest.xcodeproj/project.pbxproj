@@ -11,7 +11,7 @@
 		1C7B59BA2B067F28004C0ABD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B59B92B067F28004C0ABD /* ContentView.swift */; };
 		1C7B59BC2B067F2C004C0ABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B59BB2B067F2C004C0ABD /* Assets.xcassets */; };
 		1C7B59BF2B067F2C004C0ABD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B59BE2B067F2C004C0ABD /* Preview Assets.xcassets */; };
-		1CAC36012B074D9000395F11 /* SleepCalculator.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 1CAC36002B074D9000395F11 /* SleepCalculator.mlpackage */; };
+		1CBC851A2B08DF6E003D602A /* SleepCalculator.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 1CBC85192B08DF6D003D602A /* SleepCalculator.mlpackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +20,7 @@
 		1C7B59B92B067F28004C0ABD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1C7B59BB2B067F2C004C0ABD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C7B59BE2B067F2C004C0ABD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1CAC36002B074D9000395F11 /* SleepCalculator.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = SleepCalculator.mlpackage; sourceTree = "<group>"; };
+		1CBC85192B08DF6D003D602A /* SleepCalculator.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = SleepCalculator.mlpackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +55,8 @@
 			children = (
 				1C7B59B72B067F28004C0ABD /* BetterRestApp.swift */,
 				1C7B59B92B067F28004C0ABD /* ContentView.swift */,
+				1CBC85192B08DF6D003D602A /* SleepCalculator.mlpackage */,
 				1C7B59BB2B067F2C004C0ABD /* Assets.xcassets */,
-				1CAC36002B074D9000395F11 /* SleepCalculator.mlpackage */,
 				1C7B59BD2B067F2C004C0ABD /* Preview Content */,
 			);
 			path = BetterRest;
@@ -141,8 +141,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C7B59BA2B067F28004C0ABD /* ContentView.swift in Sources */,
+				1CBC851A2B08DF6E003D602A /* SleepCalculator.mlpackage in Sources */,
 				1C7B59B82B067F28004C0ABD /* BetterRestApp.swift in Sources */,
-				1CAC36012B074D9000395F11 /* SleepCalculator.mlpackage in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
